@@ -30,8 +30,9 @@ public class Main extends Application
     camera.setTranslateZ(-1000);
     scene.setCamera(camera);
 
-    Grid grid = new Grid(2, 100);
+    Grid grid = new Grid(12, 7);
     grid.buildGrid();
+    grid.buildNeighbors();
 
     /*
     final PhongMaterial blueMaterial = new PhongMaterial();

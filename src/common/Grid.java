@@ -14,12 +14,27 @@ public class Grid
   int cubeSize;
   private Cube[][][] grid;
   private Group group = new Group();
-  private int startX = 0;
-  private int startY = 0;
+  private int startX = -150;
+  private int startY = -150;
   private int startZ = 0;
+  private int space = 5;
 
   /**
-   * Default constructor for, which creates a 3 x 3 x 3 Grid
+   * Default constructor for building a static grid of 30 x 30 x 30.
+   *
+   * The size is set to 32 to account for a 1 x 1 x 1 transparent border.
+   */
+  public Grid()
+  {
+    gridSize = 32;
+    grid = new Cube[gridSize][gridSize][gridSize];
+  }
+
+  /**
+   * Constructor for building a custom sized grid. For example, if 3 is passed
+   * then that'll create a 3 x 3 x 3 Grid.
+   *
+   * +2 is added for a transparent border.
    */
   public Grid(int gridSize, int cubeSize)
   {
@@ -28,31 +43,23 @@ public class Grid
     grid = new Cube[gridSize][gridSize][gridSize];
   }
 
-  public Grid(int x, int y, int z)
-  {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    grid = new Cube[this.x][this.y][this.z];
-  }
-
   public void buildGrid()
   {
 
-    int space = 20; // Space between cubes
+    //int space = 5; // Space between cubes
     int xCord = startX;
     int yCord, zCord;
 
     //for (int x = 0; x < grid.length; x++)
-    for (int x = 0; x < gridSize; x++)
+    for (int x = 1; x < gridSize-1; x++)
     {
       yCord = startY;
       //for (int y = 0; y < grid[y].length; y++)
-      for (int y = 0; y < gridSize; y++)
+      for (int y = 1; y < gridSize-1; y++)
       {
         zCord = startZ;
         //for (int z = 0; z < grid[y].length; z++)
-        for (int z = 0; z < gridSize; z++)
+        for (int z = 1; z < gridSize-1; z++)
         {
           Cube cell = new Cube(cubeSize);
           cell.setCoordinates(xCord, yCord, zCord);
@@ -65,6 +72,24 @@ public class Grid
         yCord += cubeSize + space;
       }
       xCord += cubeSize + space;
+    }
+  }
+
+  public void buildNeighbors()
+  {
+    //for (int x = 0; x < grid.length; x++)
+    for (int x = 1; x < gridSize-1; x++)
+    {
+      //for (int y = 0; y < grid[y].length; y++)
+      for (int y = 1; y < gridSize-1; y++)
+      {
+        //for (int z = 0; z < grid[y].length; z++)
+        for (int z = 1; z < gridSize-1; z++)
+        {
+          Cube cell = grid[x][y][z];
+          cell.setNeighbors(grid, x, y, z);
+        }
+      }
     }
   }
 
