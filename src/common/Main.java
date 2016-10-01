@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -35,10 +33,10 @@ public class Main extends Application
     scene.setCamera(camera);
 
     Grid grid = new Grid(32, 7);
-    //Grid grid = new Grid(6, 20);
+    //Grid grid = new Grid(12, 20);
     grid.buildGrid();
     grid.setRinput(5, 5, 6, 3);
-    grid.setRinput(2, 4, 3, 1);
+    //grid.setRinput(2, 4, 3, 1);
     grid.buildNeighbors();
 
     grid.getGroup().setRotationAxis(Rotate.Y_AXIS);
@@ -46,7 +44,7 @@ public class Main extends Application
     //root.setRotationAxis(Rotate.Y_AXIS);
     //root.setRotate(120);
 
-    Loop loop = new Loop(grid.getGroup(), grid, grid);
+    Loop loop = new Loop(grid.getGroup(), grid);
 
     primaryStage.setTitle("Game of Life");
     primaryStage.setScene(scene);

@@ -57,7 +57,7 @@ public class Grid
         zCord = startZ;
         for (int z = 1; z < gridSize-1; z++)
         {
-          Cube cell = new Cube(cubeSize, true);
+          Cube cell = new Cube(cubeSize);
           cell.setCoordinates(xCord, yCord, zCord);
 
           grid[x][y][z] = cell;
@@ -133,15 +133,5 @@ public class Grid
   public Cube getCell(int x, int y, int z)
   {
     return grid[x][y][z];
-  }
-
-  public void addCell(Cube cell, int x, int y, int z)
-  {
-    grid[x][y][z] = cell;
-  }
-
-  public Cube[][][] getGrid()
-  {
-    return this.grid;
   }
 }

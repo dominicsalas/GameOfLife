@@ -10,16 +10,15 @@ import javafx.scene.transform.Rotate;
 class Loop extends AnimationTimer
 {
   private static final double RATE = 0.25;
-  private Group group, newGroup;
-  private Grid currentGrid, newGrid;
+  private Group group;
+  private Grid grid;
 
-  Loop(Group g, Grid currentGrid, Grid newGrid)
+
+  Loop(Group g, Grid grid)
   {
     super();
     group = g;
-    newGroup = new Group();
-    this.currentGrid = currentGrid;
-    this.newGrid = newGrid;
+    this.grid = grid;
   }
 
   @Override
@@ -35,42 +34,30 @@ class Loop extends AnimationTimer
     gamePlay();
   }
 
+
   private void gamePlay()
   {
-    for (int x = 1; x < currentGrid.getGridSize()-1; x++)
+    for (int x = 1; x < grid.getGridSize()-1; x++)
     {
-      for (int y = 1; y < currentGrid.getGridSize()-1; y++)
+      for (int y = 1; y < grid.getGridSize()-1; y++)
       {
-        for (int z = 1; z < currentGrid.getGridSize()-1; z++)
+        for (int z = 1; z < grid.getGridSize()-1; z++)
         {
-          Cube cell = currentGrid.getCell(x, y, z);
-          checkCell(cell); //Without synchronization
-
-          //Cube newCell = new Cube(cell);
-          //Cube newCell = new Cube(cell.getSize(), cell.getStatus(),
-          //        cell.getNeighbors(), cell.getCubeMaterial());
-          //newCell.setCoordinates(cell.getX(), cell.getY(), cell.getZ());
-          //newCell.calculateNeighbors();
-          //Cube newCell = new Cube(cell);
-          //checkCell(newCell);
-          //newGrid.addCell(newCell, x, y, z);
-          //newGroup.getChildren().add(newCell);
+          Cube cell = grid.getCell(x, y, z);
+          checkCell(cell);
         }
       }
     }
 
-    //group = newGroup;
-    //newGrid.setGroup(group);
-    currentGrid = newGrid;
-    currentGrid.buildNeighbors();
+    grid.buildNeighbors();
   }
 
   private void checkCell(Cube cell)
   {
     if (cell.getStatus() == 0)
     {
-      if (cell.getNeighborsAlive() > currentGrid.getR3()
-              || cell.getNeighborsAlive() < currentGrid.getR4())
+      if (cell.getNeighborsAlive() > grid.getR3()
+              || cell.getNeighborsAlive() < grid.getR4())
       {
         cell.setStatus(2);
         cell.setTransitionSize(cell.getSize());
@@ -78,8 +65,8 @@ class Loop extends AnimationTimer
     }
     else if(cell.getStatus() == 1)
     {
-      if (cell.getNeighborsAlive() >= currentGrid.getR1()
-              && cell.getNeighborsAlive() <= currentGrid.getR2())
+      if (cell.getNeighborsAlive() >= grid.getR1()
+              && cell.getNeighborsAlive() <= grid.getR2())
       {
         cell.setStatus(3);
         cell.setTransitionSize(1);

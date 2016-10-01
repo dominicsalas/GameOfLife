@@ -5,11 +5,13 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 /**
- * Created by dsalas on 9/24/16.
+ * Dominic Salas
+ *
+ * Cube class. Stores all of the information for each cube within the overall
+ * grid.
  */
 public class Cube extends Box
 {
@@ -22,68 +24,54 @@ public class Cube extends Box
   private int x, y, z; // Coordinates
   private int neighborsAlive, neighborsDead;
   ArrayList<Cube> neighbors;
-  private final PhongMaterial cubeMaterial = new PhongMaterial();
-
-  public Cube(Cube cell)
-  {
-    super(cell.getSize(), cell.getSize(), cell.getSize());
-    this.status = cell.getStatus();
-    this.size = cell.getSize();
-    this.neighbors = cell.getNeighbors();
-    this.transitionSize = cell.getTransitionSize();
-    this.neighborsAlive = cell.getNeighborsAlive();
-    this.neighborsDead = cell.getNeighborsDead();
-    this.setCoordinates(cell.getX(), cell.getY(), cell.getZ());
-    this.setMaterial(cell.getMaterial());
-  }
-
-  public Cube(int size, int status, ArrayList<Cube> neighbors, PhongMaterial material)
-  {
-    super(size, size, size);
-    this.status = status;
-    this.size = size;
-    this.neighbors = neighbors;
-    this.setMaterial(material);
-  }
+  private PhongMaterial cubeMaterial;
 
   /**
    * Constructor for setting random cubes
    * @param size
-   * @param random
    */
-  public Cube(int size, boolean random)
+  public Cube(int size)
   {
     super(size, size, size);
+    cubeMaterial = new PhongMaterial();
     Random rand = new Random();
+    this.size = size;
     int number = rand.nextInt(2);
     if (number == 0)
     {
       this.status = 0;
-      //this.cellAlive();
-      cubeMaterial.setDiffuseColor(Color.LIGHTGREEN);
-      cubeMaterial.setSpecularColor(Color.GREEN);
-      this.setMaterial(cubeMaterial);
+      this.cellAlive();
     }
     else
     {
       this.status = 1;
-      this.setVisible(false);
+      this.killCell();
     }
 
-    this.size = size;
     this.neighbors = new ArrayList<>();
   }
 
+  /**
+   * Returns status or state of the cube
+   * @return status
+   */
   public int getStatus()
   {
     return status;
   }
 
+  /**
+   * Sets status or state of the cube
+   * @param status
+   */
   public void setStatus(int status)
   {
     this.status = status;
   }
 
+  /**
+   * Updates the cell with the latest information
+   */
   public void updateCell()
   {
     // Cell is dying
@@ -97,7 +85,7 @@ public class Cube extends Box
       // Still dying
       else
       {
-        this.transitionSize -= size * 0.09;
+        this.transitionSize -= size * 0.01;
         this.cellDying();
       }
     }
@@ -112,18 +100,24 @@ public class Cube extends Box
       // Still coming alive
       else
       {
-        this.transitionSize += size * 0.09;
+        this.transitionSize += size * 0.01;
         this.cellComingAlive();
       }
     }
   }
 
+  /**
+   * Kills off cell but updating status and making not visible.
+   */
   public void killCell()
   {
     this.status = 1;
     this.setVisible(false);
   }
 
+  /**
+   * Sets cell to come alive
+   */
   public void cellAlive()
   {
     this.status = 0;
@@ -135,6 +129,9 @@ public class Cube extends Box
     this.setMaterial(cubeMaterial);
   }
 
+  /**
+   * Updates cells setting to dying
+   */
   public void cellDying()
   {
     this.depthProperty().setValue(transitionSize);
@@ -145,6 +142,9 @@ public class Cube extends Box
     this.setMaterial(cubeMaterial);
   }
 
+  /**
+   * Updates cells info to coming alive
+   */
   public void cellComingAlive()
   {
     this.depthProperty().setValue(transitionSize);
@@ -155,6 +155,12 @@ public class Cube extends Box
     this.setMaterial(cubeMaterial);
   }
 
+  /**
+   * Sets coordinates for the cell. Only needed in the begining.
+   * @param x coordinate
+   * @param y coordinate
+   * @param z coordinate
+   */
   public void setCoordinates(int x, int y, int z)
   {
     this.x = x;
@@ -165,8 +171,14 @@ public class Cube extends Box
     this.setTranslateZ(z);
   }
 
+  /**
+   * Calculates the number of neighbors
+   */
   public void calculateNeighbors()
   {
+    neighborsAlive = 0;
+    neighborsDead = 0;
+
     for (Cube cube : neighbors)
     {
       if (cube.getStatus() == 0)
@@ -180,11 +192,19 @@ public class Cube extends Box
     }
   }
 
+  /**
+   * Gets the neighbors that are alive
+   * @return number of neighbors alive
+   */
   public int getNeighborsAlive()
   {
     return this.neighborsAlive;
   }
 
+  /**
+   * Sets new size of cell
+   * @param transitionSize
+   */
   public void setTransitionSize(float transitionSize)
   {
     this.transitionSize = transitionSize;
