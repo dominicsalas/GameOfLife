@@ -1,4 +1,4 @@
-package common;
+package test;
 
 /**
  * Created by dsalas on 9/19/16.

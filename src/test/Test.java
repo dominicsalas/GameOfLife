@@ -1,4 +1,6 @@
-package common;
+package test;
+
+import java.util.Random;
 
 /**
  * Created by dsalas on 9/25/16.
@@ -16,5 +18,10 @@ public class Test
 
     System.out.println(ans);
     System.out.println(ans2);
+
+    Random rand = new Random();
+    int random = rand.nextInt(2);
+
+    System.out.println(random);
   }
 }
