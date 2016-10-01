@@ -8,6 +8,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
+/**
+ * Dominic Salas
+ *
+ * Main class the initiates the program and the GUI.
+ */
 public class Main extends Application
 {
   @Override
@@ -52,7 +57,10 @@ public class Main extends Application
     loop.start();
   }
 
-
+  /**
+   * Main method
+   * @param args
+   */
   public static void main(String[] args)
   {
     launch(args);

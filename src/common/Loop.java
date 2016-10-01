@@ -1,19 +1,25 @@
 package common;
 
-/**
- * Created by dsalas on 9/26/16.
- */
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
+/**
+ * Dominic Salas
+ *
+ * Loop that allows the game to continue to run
+ */
 class Loop extends AnimationTimer
 {
   private static final double RATE = 0.25;
   private Group group;
   private Grid grid;
 
-
+  /**
+   * Loop constructor that is being passed the group of cells and grid
+   * @param g
+   * @param grid
+   */
   Loop(Group g, Grid grid)
   {
     super();
@@ -21,6 +27,10 @@ class Loop extends AnimationTimer
     this.grid = grid;
   }
 
+  /**
+   * Built in method that is repeatedly being called.
+   * @param now
+   */
   @Override
   public void handle(long now)
   {
@@ -34,7 +44,9 @@ class Loop extends AnimationTimer
     gamePlay();
   }
 
-
+  /**
+   * Continuous gameplay
+   */
   private void gamePlay()
   {
     for (int x = 1; x < grid.getGridSize()-1; x++)
@@ -52,6 +64,10 @@ class Loop extends AnimationTimer
     grid.buildNeighbors();
   }
 
+  /**
+   * Checks each cell and then updates it
+   * @param cell
+   */
   private void checkCell(Cube cell)
   {
     if (cell.getStatus() == 0)

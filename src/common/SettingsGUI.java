@@ -5,7 +5,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 /**
- * Created by dsalas on 9/30/16.
+ * Dominic Salas
+ *
+ * Settings GUI
  */
 public class SettingsGUI
 {

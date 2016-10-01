@@ -3,14 +3,13 @@ package common;
 import javafx.scene.Group;
 
 /**
- * Created by dsalas on 9/25/16.
+ * Dominic Salas
+ *
+ * Builds the overall grid
  */
 public class Grid
 {
-  int x, y, z, size;
-  // Grid 3D dimensions. E.g., 3 x 3 x 3.
   private int gridSize;
-  // Cube 3D dimensions. E.g., 10 x 10 x 10
   int cubeSize;
   private Cube[][][] grid;
   private Group group = new Group();
@@ -44,6 +43,9 @@ public class Grid
     grid = new Cube[gridSize][gridSize][gridSize];
   }
 
+  /**
+   * Method for the actual building grid logic.
+   */
   public void buildGrid()
   {
     int xCord = startX;
@@ -71,6 +73,9 @@ public class Grid
     }
   }
 
+  /**
+   * Builds the neighbor collection for each cell
+   */
   public void buildNeighbors()
   {
     for (int x = 1; x < gridSize-1; x++)
@@ -87,16 +92,22 @@ public class Grid
     }
   }
 
+  /**
+   * Returns the group of cells
+   * @return group
+   */
   public Group getGroup()
   {
     return group;
   }
 
-  public void setGroup(Group group)
-  {
-    this.group = group;
-  }
-
+  /**
+   * Sets the game rules
+   * @param r1
+   * @param r2
+   * @param r3
+   * @param r4
+   */
   public void setRinput(int r1, int r2, int r3, int r4)
   {
     this.r1 = r1;
@@ -105,31 +116,58 @@ public class Grid
     this.r4 = r4;
   }
 
+  /**
+   * Returns r1
+   * @return r1
+   */
   public int getR1()
   {
     return this.r1;
   }
 
+  /**
+   * Returns r2
+   * @return r2
+   */
   public int getR2()
   {
     return this.r2;
   }
 
+  /**
+   * returns r3
+   * @return r3
+   */
   public int getR3()
   {
     return this.r3;
   }
 
+  /**
+   * Returns r4
+   * @return
+   */
   public int getR4()
   {
     return this.r4;
   }
 
+  /**
+   * Returns the size of the grid
+   * @return grid size
+   */
   public int getGridSize()
   {
     return this.gridSize;
   }
 
+  /**
+   * Returns a specific cell
+   * @param x
+   * @param y
+   * @param z
+   * @return
+   */
   public Cube getCell(int x, int y, int z)
   {
     return grid[x][y][z];

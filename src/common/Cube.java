@@ -70,6 +70,15 @@ public class Cube extends Box
   }
 
   /**
+   * Returns cube's original size
+   * @return
+   */
+  public int getSize()
+  {
+    return this.size;
+  }
+
+  /**
    * Updates the cell with the latest information
    */
   public void updateCell()
@@ -210,46 +219,13 @@ public class Cube extends Box
     this.transitionSize = transitionSize;
   }
 
-  public float getTransitionSize()
-  {
-    return this.transitionSize;
-  }
-
-  public int getNeighborsDead()
-  {
-    return this.neighborsDead;
-  }
-
-  public int getX()
-  {
-    return this.x;
-  }
-
-  public int getY()
-  {
-    return this.y;
-  }
-
-  public int getZ()
-  {
-    return this.y;
-  }
-
-  public int getSize()
-  {
-    return this.size;
-  }
-
-  public PhongMaterial getCubeMaterial()
-  {
-    return this.cubeMaterial;
-  }
-
-  public ArrayList<Cube> getNeighbors()
-  {
-    return this.neighbors;
-  }
-
+  /**
+   * Creates collection of neighbors for each cell
+   * @param grid
+   * @param x
+   * @param y
+   * @param z
+   */
   public void setNeighbors(Cube[][][] grid, int x, int y, int z)
   {
 
