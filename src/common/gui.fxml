@@ -71,6 +71,11 @@
         </items>
       </MenuButton>
       <Button fx:id="btnLoadDefaults" mnemonicParsing="false" onAction="#handleButtonAction" text="Fill in Defaults:" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+      <Label prefHeight="16.0" prefWidth="123.0" text="Enter a grid size:" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter a grid size and cube size. For example, 3 would be a 3 x 3 x 3." wrappingWidth="213.49786376953125" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+      <TextField fx:id="gridTextArea" onAction="#handleButtonAction" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter cube size:" GridPane.columnIndex="4" GridPane.columnSpan="2147483647" GridPane.rowIndex="8" />
+      <TextField fx:id="cubeTextArea" onAction="#handleButtonAction" GridPane.columnIndex="6" GridPane.rowIndex="8" />
    </children>
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />

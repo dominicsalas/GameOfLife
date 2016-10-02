@@ -10,11 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -31,6 +28,7 @@ public class GUI extends Application
   private int r1, r2, r3, r4;
   Grid grid;
   private Button backButton;
+  private int gridSize, cubeSize;
 
   @FXML
   private Button btnGameScene;
@@ -44,6 +42,10 @@ public class GUI extends Application
   private TextField r3TextArea;
   @FXML
   private TextField r4TextArea;
+  @FXML
+  private TextField gridTextArea;
+  @FXML
+  private TextField cubeTextArea;
 
 
   @FXML
@@ -55,12 +57,12 @@ public class GUI extends Application
       r2TextArea.setText("5");
       r3TextArea.setText("6");
       r4TextArea.setText("3");
+      gridTextArea.setText("32");
+      cubeTextArea.setText("7");
     }
 
     if (e.getSource() == btnGameScene)
     {
-      String test = r1TextArea.getText();
-      System.out.println(r1TextArea.getText());
       // Builds grid using default settings with some or all fields not filled in
       if (r1TextArea.getText().isEmpty() || r2TextArea.getText().isEmpty() ||
               r3TextArea.getText().isEmpty() || r4TextArea.getText().isEmpty())
@@ -70,7 +72,10 @@ public class GUI extends Application
         r3 = 6;
         r4 = 6;
 
-        grid = new Grid(32, 7);
+        // Checks if grid and cube fields are blank.
+        checkGridCubeFields();
+
+        grid = new Grid(gridSize, cubeSize);
         grid.buildGrid();
         gameGui();
       }
@@ -81,10 +86,52 @@ public class GUI extends Application
         r3 = Integer.parseInt(r3TextArea.getText());
         r4 = Integer.parseInt(r4TextArea.getText());
 
-        grid = new Grid(32, 7);
+        // Checks if grid and cube fields are blank.
+        checkGridCubeFields();
+
+        grid = new Grid(gridSize, cubeSize);
         grid.buildGrid();
         gameGui();
       }
+    }
+  }
+
+  private boolean validateFieldInput()
+  {
+    try
+    {
+      r1 = Integer.parseInt(r1TextArea.getText());
+      r2 = Integer.parseInt(r2TextArea.getText());
+      r3 = Integer.parseInt(r3TextArea.getText());
+      r4 = Integer.parseInt(r4TextArea.getText());
+      gridSize = Integer.parseInt(gridTextArea.getText());
+      cubeSize = Integer.parseInt(cubeTextArea.getText());
+    }
+    catch (IllegalArgumentException e1)
+    {
+      e1.printStackTrace();
+      try
+      {
+        start(theStage);
+      } catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    return true;
+  }
+
+  private void checkGridCubeFields()
+  {
+    if (gridTextArea.getText().isEmpty() || cubeTextArea.getText().isEmpty())
+    {
+      gridSize = 32;
+      cubeSize = 7;
+    }
+    else
+    {
+      gridSize = Integer.parseInt(gridTextArea.getText());
+      cubeSize = Integer.parseInt(cubeTextArea.getText());
     }
   }
 
