@@ -48,7 +48,7 @@ public class Cube extends Box
       this.killCell();
     }
 
-    this.neighbors = new ArrayList<>();
+
   }
 
   /**
@@ -94,7 +94,7 @@ public class Cube extends Box
       // Still dying
       else
       {
-        this.transitionSize -= size * 0.01;
+        this.transitionSize -= size * 0.05;
         this.cellDying();
       }
     }
@@ -109,7 +109,7 @@ public class Cube extends Box
       // Still coming alive
       else
       {
-        this.transitionSize += size * 0.01;
+        this.transitionSize += size * 0.05;
         this.cellComingAlive();
       }
     }
@@ -188,6 +188,11 @@ public class Cube extends Box
     neighborsAlive = 0;
     neighborsDead = 0;
 
+    if (neighbors.size() > 26)
+    {
+      System.out.println("Error! ");
+      System.out.println("Number of neighbors: " + neighbors.size());
+    }
     for (Cube cube : neighbors)
     {
       if (cube.getStatus() == 0)
@@ -228,6 +233,7 @@ public class Cube extends Box
    */
   public void setNeighbors(Cube[][][] grid, int x, int y, int z)
   {
+    this.neighbors = new ArrayList<>();
 
     // Checks Z+1 and ensures is not null
     if (grid[x][y][z+1] != null)
