@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -29,6 +30,7 @@ public class GUI extends Application
   Grid grid;
   private Button backButton;
   private int gridSize, cubeSize;
+  private boolean preset1, preset2, preset3, preset4;
 
   @FXML
   private Button btnGameScene;
@@ -46,11 +48,61 @@ public class GUI extends Application
   private TextField gridTextArea;
   @FXML
   private TextField cubeTextArea;
+  @FXML
+  private MenuItem presetOne;
+  @FXML
+  private MenuItem presetTwo;
+  @FXML
+  private MenuItem presetThree;
+  @FXML
+  private MenuItem presetFour;
+  //private int presetBooleans;
 
 
   @FXML
   public void handleButtonAction(ActionEvent e)
   {
+    if (e.getSource() == presetOne)
+    {
+      r1TextArea.setText("4");
+      r2TextArea.setText("4");
+      r3TextArea.setText("3");
+      r4TextArea.setText("4");
+      gridTextArea.setText("32");
+      cubeTextArea.setText("7");
+      setPresetBooleans(1);
+    }
+    else if (e.getSource() == presetTwo)
+    {
+      r1TextArea.setText("4");
+      r2TextArea.setText("4");
+      r3TextArea.setText("4");
+      r4TextArea.setText("3");
+      gridTextArea.setText("32");
+      cubeTextArea.setText("7");
+      setPresetBooleans(2);
+    }
+    else if (e.getSource() == presetThree)
+    {
+      r1TextArea.setText("4");
+      r2TextArea.setText("5");
+      r3TextArea.setText("3");
+      r4TextArea.setText("4");
+      gridTextArea.setText("32");
+      cubeTextArea.setText("7");
+      setPresetBooleans(3);
+    }
+    else if (e.getSource() == presetFour)
+    {
+      r1TextArea.setText("6");
+      r2TextArea.setText("6");
+      r3TextArea.setText("7");
+      r4TextArea.setText("5");
+      gridTextArea.setText("32");
+      cubeTextArea.setText("7");
+      setPresetBooleans(4);
+    }
+
     if (e.getSource() == btnLoadDefaults)
     {
       r1TextArea.setText("5");
@@ -89,9 +141,26 @@ public class GUI extends Application
         // Checks if grid and cube fields are blank.
         checkGridCubeFields();
 
-        grid = new Grid(gridSize, cubeSize);
-        grid.buildGrid();
-        gameGui();
+        if (preset1 || preset2 || preset3)
+        {
+          grid = new Grid(gridSize, cubeSize);
+          grid.buildGridAllDead();
+          grid.setFirstPresets();
+          gameGui();
+        }
+        else if (preset4)
+        {
+          // DO SOMETHING DIFFERENT BELOW
+          grid = new Grid(gridSize, cubeSize);
+          grid.buildGrid();
+          gameGui();
+        }
+        else
+        {
+          grid = new Grid(gridSize, cubeSize);
+          grid.buildGrid();
+          gameGui();
+        }
       }
     }
   }
@@ -194,5 +263,50 @@ public class GUI extends Application
     primaryStage.setTitle("Game of Life");
     primaryStage.setScene(settingsScene);
     primaryStage.show();
+  }
+
+  public void setPresetBooleans(int preset)
+  {
+    if (preset == 1)
+    {
+      preset1 = true;
+
+      preset2 = false;
+      preset3 = false;
+      preset4 = false;
+    }
+    else if (preset == 2)
+    {
+      preset2 = true;
+
+      preset1 = false;
+      preset3 = false;
+      preset4 = false;
+    }
+    else if (preset == 3)
+    {
+      preset3 = true;
+
+      preset1 = false;
+      preset2 = false;
+      preset4 = false;
+    }
+    else if (preset == 4)
+    {
+      preset4 = true;
+
+      preset1 = false;
+      preset2 = false;
+      preset3 = false;
+    }
+    else
+    {
+      System.out.println("Unrecognized preset");
+
+      preset1 = false;
+      preset2 = false;
+      preset3 = false;
+      preset4 = false;
+    }
   }
 }

@@ -47,8 +47,24 @@ public class Cube extends Box
       this.status = 1;
       this.killCell();
     }
+  }
 
+  public Cube(int size, boolean b)
+  {
+    super(size, size, size);
+    cubeMaterial = new PhongMaterial();
+    this.size = size;
 
+    if (b)
+    {
+      this.status = 0;
+      this.cellAlive();
+    }
+    else
+    {
+      this.status = 1;
+      this.killCell();
+    }
   }
 
   /**
@@ -94,7 +110,7 @@ public class Cube extends Box
       // Still dying
       else
       {
-        this.transitionSize -= size * 0.05;
+        this.transitionSize -= size * 0.1;
         this.cellDying();
       }
     }
@@ -109,7 +125,7 @@ public class Cube extends Box
       // Still coming alive
       else
       {
-        this.transitionSize += size * 0.05;
+        this.transitionSize += size * 0.1;
         this.cellComingAlive();
       }
     }
@@ -130,6 +146,7 @@ public class Cube extends Box
   public void cellAlive()
   {
     this.status = 0;
+    this.setVisible(true);
     this.depthProperty().setValue(size);
     this.heightProperty().setValue(size);
     this.widthProperty().setValue(size);
@@ -156,6 +173,7 @@ public class Cube extends Box
    */
   public void cellComingAlive()
   {
+    this.setVisible(true);
     this.depthProperty().setValue(transitionSize);
     this.heightProperty().setValue(transitionSize);
     this.widthProperty().setValue(transitionSize);

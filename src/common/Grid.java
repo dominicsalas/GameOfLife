@@ -44,7 +44,8 @@ public class Grid
   }
 
   /**
-   * Method for the actual building grid logic.
+   * Method for the actual building grid logic. Uses the Cube constructor
+   * that randomly sets cubes to alive.
    */
   public void buildGrid()
   {
@@ -60,6 +61,39 @@ public class Grid
         for (int z = 1; z < gridSize-1; z++)
         {
           Cube cell = new Cube(cubeSize);
+          cell.setCoordinates(xCord, yCord, zCord);
+
+          grid[x][y][z] = cell;
+          group.getChildren().add(cell);
+          zCord += cubeSize + space;
+        }
+        // Grabs the the cube at index 0 and returns size
+        yCord += cubeSize + space;
+      }
+      xCord += cubeSize + space;
+    }
+  }
+
+  /**
+   * Method for the actual building grid logic. Uses the Cube constructor
+   * that randomly sets all cubes to not visible:w
+   * .
+   */
+  public void buildGridAllDead()
+  {
+    int xCord = startX;
+    int yCord, zCord;
+
+    for (int x = 1; x < gridSize-1; x++)
+    {
+      yCord = startY;
+      for (int y = 1; y < gridSize-1; y++)
+      {
+        zCord = startZ;
+        for (int z = 1; z < gridSize-1; z++)
+        {
+          Cube cell;
+          cell = new Cube(cubeSize, false);
           cell.setCoordinates(xCord, yCord, zCord);
 
           grid[x][y][z] = cell;
@@ -99,6 +133,19 @@ public class Grid
   public Group getGroup()
   {
     return group;
+  }
+
+  public void setFirstPresets()
+  {
+    grid[15][15][15].cellAlive();
+    grid[15][15][16].cellAlive();
+    grid[15][16][15].cellAlive();
+    grid[15][16][16].cellAlive();
+
+    grid[17][15][15].cellAlive();
+    grid[17][15][16].cellAlive();
+    grid[17][16][15].cellAlive();
+    grid[17][16][16].cellAlive();
   }
 
   /**

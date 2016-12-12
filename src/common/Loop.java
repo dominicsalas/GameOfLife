@@ -84,6 +84,7 @@ class Loop extends AnimationTimer
       if (cell.getNeighborsAlive() >= grid.getR1()
               && cell.getNeighborsAlive() <= grid.getR2())
       {
+        //System.out.println("Cell coming alive");
         cell.setStatus(3);
         cell.setTransitionSize(1);
       }
