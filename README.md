@@ -14,9 +14,10 @@ overall grid.
 
 Grid: This is the Grid class that builds the grid and maintains info about about the grid.
 
-GUI: Handles the GUI of the game along with tracking input. I couldn't figure out an easy way 
-to integrate validating input.
+GUI: Handles the GUI of the game along with tracking input. 
 
 Loop: This is the Loop class and it's responsible for looping the game and updating each state of the game.
+
+Select Preset: This is a drop down menu to select the preset you'd like to load.
 
 gui.fxml: This is the First screen.
