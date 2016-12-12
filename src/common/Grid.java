@@ -135,6 +135,9 @@ public class Grid
     return group;
   }
 
+  /**
+   * Setting the cells alive for the first three presets
+   */
   public void setFirstPresets()
   {
     grid[15][15][15].cellAlive();
@@ -146,6 +149,25 @@ public class Grid
     grid[17][15][16].cellAlive();
     grid[17][16][15].cellAlive();
     grid[17][16][16].cellAlive();
+  }
+
+  /**
+   * Setting the cells alive for fourth and last preset
+   */
+  public void setPresetFour()
+  {
+    grid[15][15][15].cellAlive();
+    grid[15][15][16].cellAlive();
+    grid[15][16][15].cellAlive();
+    grid[15][16][16].cellAlive();
+
+    grid[16][14][15].cellAlive();
+    grid[16][14][16].cellAlive();
+    grid[16][15][15].cellAlive();
+    grid[16][15][16].cellAlive();
+
+    grid[14][14][15].cellAlive();
+    grid[14][14][16].cellAlive();
   }
 
   /**

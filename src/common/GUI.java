@@ -56,7 +56,6 @@ public class GUI extends Application
   private MenuItem presetThree;
   @FXML
   private MenuItem presetFour;
-  //private int presetBooleans;
 
 
   @FXML
@@ -152,7 +151,8 @@ public class GUI extends Application
         {
           // DO SOMETHING DIFFERENT BELOW
           grid = new Grid(gridSize, cubeSize);
-          grid.buildGrid();
+          grid.buildGridAllDead();
+          grid.setPresetFour();
           gameGui();
         }
         else
